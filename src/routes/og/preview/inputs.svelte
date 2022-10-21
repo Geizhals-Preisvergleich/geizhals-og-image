@@ -1,4 +1,5 @@
 <script>
+  import { draggable } from '@neodrag/svelte';
 
 	export let data;
 
@@ -9,14 +10,14 @@
   }
 </script>
 
-<form>
+<form use:draggable={{ cancel: '.cancel-drag' }}>
 	<label>
 		Title:
-		<input type="text" bind:value={data.title} placeholder="<title>"/>
+		<input class="cancel-drag" type="text" bind:value={data.title} placeholder="<title>"/>
 	</label>
 	<label>
 		Image:
-		<input type="text" bind:value={data.image} placeholder="url to an image"/>
+		<input class="cancel-drag" type="text" bind:value={data.image} placeholder="url to an image"/>
 	</label>
 
   <a href={url} target="_blank">open og image</a>
@@ -37,6 +38,8 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+    background: rgba(0, 0, 0, 0.632);
+    z-index: 100;
 	}
 
 	label {
