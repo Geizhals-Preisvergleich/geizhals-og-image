@@ -1,5 +1,6 @@
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
+import { env } from '$env/dynamic/private';
 
 import Inter from '$lib/fonts/Inter-Regular.woff';
 import InterBold from '$lib/fonts/Inter-Bold.woff';
@@ -7,7 +8,9 @@ import InterExtraBold from '$lib/fonts/Inter-ExtraBold.woff';
 
 import { html as toReactNode } from 'satori-html';
 import Card from '$lib/Card.svelte';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
+import { extractSearchParams } from './extract-params';
+import { dev } from '$app/environment';
 
 const height = 630;
 const width = 1200;
@@ -15,12 +18,16 @@ const width = 1200;
 /** @type {import('./$types').RequestHandler } */
 export const GET = async (event) => {
 	let searchParams = event.url.searchParams;
-	let title = searchParams.get('title') ?? undefined;
+
+  validateKey(searchParams.get('key'));
+
+  let renderparams = extractSearchParams(searchParams);
 
 	// renders the component (as string)
 	const result = Card.render({
-		title
+		renderparams
 	});
+
 	const element = toReactNode(`${result.html}<style>${result.css.code}</style>`);
 
 	const svg = await satori(element, {
@@ -63,3 +70,22 @@ export const GET = async (event) => {
 		}
 	});
 };
+
+
+/**
+ * Validate the provided key from the URL against
+ * the KEY defined in environment
+ * @param {string|null} keyFromUrlParams
+ */
+function validateKey(keyFromUrlParams) {
+
+  if(dev) return true;
+
+  if(typeof env.KEY === 'undefined') {
+    throw error(500, 'Server misconfiguration: env.KEY is missing.');
+  }
+
+  if(env.KEY !== keyFromUrlParams) {
+    throw error(405, 'Not allowed. Missing or wrong key.');
+  }
+}
