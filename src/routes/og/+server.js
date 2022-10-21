@@ -66,7 +66,8 @@ export const GET = async (event) => {
 
 	return new Response(image.asPng(), {
 		headers: {
-			'content-type': 'image/png'
+			'content-type': 'image/png',
+      'Cache-Control': 'max-age=60'
 		}
 	});
 };
