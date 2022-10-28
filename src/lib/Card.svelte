@@ -1,7 +1,10 @@
 <script>
+	import { dev } from "$app/environment";
+
+
 	export let renderparams;
 
-	let { title, image, variants, ratings, ratings_count } = renderparams;
+	let { title, image, variants, ratings, ratings_count} = renderparams;
 	if (title == '') title = '<title>';
 
 	function validImage(url) {
@@ -9,7 +12,7 @@
 	}
 </script>
 
-<div class="cardroot">
+<div class="cardroot" class:debug={dev}>
 	<div class="card">
 		{#if image && validImage(image)}
 			<img class="product-image" src={image} alt="" />
@@ -32,7 +35,7 @@
 				{/if}
 				{#if variants}
 					<div class="variants">
-						{variants} Varianten
+						Varianten
 					</div>
 				{/if}
 			</div>
@@ -62,6 +65,9 @@
 		background: linear-gradient(to left, #d53a9d, #5c9ed5);
 		font-size: 24px;
 	}
+  .cardroot.debug * {
+    /* border: 1px solid #ddd; */
+  }
 
 	.card {
 		position: relative;
@@ -82,18 +88,17 @@
 	.main {
 		flex-direction: column;
 		/* border: 1px solid blue; */
-		margin-left: 350px;
-		margin-right: 0;
+		margin-right: 350px;
 		position: absolute;
-		right: 0;
-		bottom: 110px;
+		left: 20px;
+		top: 110px;
 		width: 70%;
 		z-index: 1;
-		align-items: flex-end;
+		align-items: flex-start;
 	}
 
 	.meta {
-		align-items: flex-end;
+		align-items: flex-start;
 		flex-direction: column;
 		display: flex;
 		font-size: 30px;
@@ -131,13 +136,13 @@
 		font-weight: 900;
 		margin: 0;
 		color: #004780;
-		line-height: 60px;
+		line-height: 64px;
 		max-height: 220px;
 		display: flex;
 		/* text-overflow: ellipsis;
     white-space: nowrap; */
 		overflow: hidden;
-		text-align: right;
+		text-align: left;
 		/* background-color: #005599; */
 		/* background-color: rgba(255, 255, 255, 0.8); */
 		/* color: #fff; */
@@ -148,10 +153,12 @@
 	img.product-image,
 	.placeholder-image {
 		position: absolute;
-		top: 20px;
-		left: 20px;
-		height: 400px;
+		top: 50%;
+    margin-top: -20px;
+    transform: translateY(-50%);
+		right: 20px;
 		width: 400px;
+		height: 400px;
 		object-fit: contain;
 	}
 
@@ -171,7 +178,7 @@
 		color: #666;
 	}
 	.gh-logo {
-		transform: scale(0.35);
+		transform: scale(0.45);
 		transform-origin: bottom left;
 	}
 

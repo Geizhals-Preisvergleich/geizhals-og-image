@@ -35,13 +35,13 @@
       <input class="cancel-drag" type="number" min="0" bind:value={data.ratings_count} placeholder="25" />
     </label>
   </div>
-	<label>
-		Variants (Anzahl):
-		<input class="cancel-drag" type="text" bind:value={data.variants} placeholder="2" />
+	<label class="checkbox">
+    <input class="cancel-drag" type="checkbox" bind:checked={data.variants} />
+		Varianten-Badge?
 	</label>
 
 	<hr />
-	<label class="autorefresh">
+	<label class="checkbox">
 		<input type="checkbox" bind:checked={autoRefresh} />
 		Auto-Refresh (every 4 seconds)
 	</label>
@@ -100,7 +100,7 @@
 		right: 0;
 	}
 
-	.autorefresh {
+	.checkbox {
 		display: flex;
 		flex-direction: row;
 		gap: 0.5rem;
