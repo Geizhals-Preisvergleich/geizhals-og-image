@@ -1,36 +1,65 @@
 <script>
-  import { draggable } from '@neodrag/svelte';
+	import { draggable } from '@neodrag/svelte';
+	import GripVertical from 'tabler-icons-svelte/icons/GripVertical.svelte';
 
 	export let data;
+	export let loading = false;
+	export let autoRefresh = false;
 
-  let url;
-  $: {
-    let usp = new URLSearchParams(data);
-    url = `/og?${usp.toString()}`
-  }
+	let url;
+	$: {
+		let usp = new URLSearchParams(data);
+		url = `/og?${usp.toString()}`;
+	}
 </script>
 
-<form use:draggable={{ cancel: '.cancel-drag' }}>
+<form use:draggable={{ cancel: 'input, label' }}>
+	<div class="grip-icon">
+		<GripVertical size="1rem" />
+	</div>
 	<label>
 		Title:
-		<input class="cancel-drag" type="text" bind:value={data.title} placeholder="<title>"/>
+		<input class="cancel-drag" type="text" bind:value={data.title} placeholder="<title>" />
 	</label>
 	<label>
 		Image:
-		<input class="cancel-drag" type="text" bind:value={data.image} placeholder="url to an image"/>
+		<input class="cancel-drag" type="text" bind:value={data.image} placeholder="url to an image" />
+	</label>
+  <div class="rating">
+    <label>
+      Rating (0-5):
+      <input class="cancel-drag" type="number" min="0" max="5" bind:value={data.ratings} placeholder="5" />
+    </label>
+    <label>
+      Rating Anzahl:
+      <input class="cancel-drag" type="number" min="0" bind:value={data.ratings_count} placeholder="25" />
+    </label>
+  </div>
+	<label>
+		Variants (Anzahl):
+		<input class="cancel-drag" type="text" bind:value={data.variants} placeholder="2" />
 	</label>
 
-  <a href={url} target="_blank">open og image</a>
+	<hr />
+	<label class="autorefresh">
+		<input type="checkbox" bind:checked={autoRefresh} />
+		Auto-Refresh (every 4 seconds)
+	</label>
+
+	<a href={url} target="_blank" style="align-self: flex-start;">open og image</a>
+
+	{#if loading}<div class="loading">loading</div>{/if}
 </form>
 
 <style>
-  a {
-    color: #fff;
-  }
+	a {
+		color: #fff;
+	}
 	form {
 		position: absolute;
 		top: 1rem;
-		border: 1px solid #fff;
+		right: 1rem;
+		border: 2px solid var(--primary);
 		border-radius: 5px;
 		padding: 1rem;
 		color: #fff;
@@ -38,8 +67,17 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-    background: rgba(0, 0, 0, 0.632);
-    z-index: 100;
+		background: rgb(0 0 0 / 72%);
+		z-index: 100;
+		backdrop-filter: blur(10px);
+		cursor: grab;
+	}
+
+	.grip-icon {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		pointer-events: none;
 	}
 
 	label {
@@ -48,12 +86,32 @@
 		text-transform: uppercase;
 		font-weight: 600;
 	}
-	input[type='text'] {
-		border: 1px solid #fff;
-    background-color: #444;
-    color: #fff;
+	input[type='text'], input[type='number'] {
+		border: 1px solid var(--primary);
+		background-color: rgba(0, 0, 0, 0.656);
+		color: #fff;
 		padding: 0.5em;
-		width: 50ch;
 		font-weight: normal;
 	}
+
+	.loading {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
+
+	.autorefresh {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+	}
+
+  .rating {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .rating > * {
+    flex: 1;
+  }
 </style>

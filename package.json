@@ -31,11 +31,13 @@
 		"svelte": "^3.46.0",
 		"svelte-check": "^2.7.1",
 		"svelte-preprocess": "^4.10.7",
+		"svelte-textfit": "^1.1.4",
 		"typescript": "^4.7.4",
 		"vite": "^3.1.0"
 	},
 	"type": "module",
 	"dependencies": {
-		"@neodrag/svelte": "^1.2.4"
+		"@neodrag/svelte": "^1.2.4",
+		"tabler-icons-svelte": "^1.8.0"
 	}
 }
