@@ -10,6 +10,7 @@
 
 	function buildOGImageUrl(renderparams) {
     let filtered = Object.entries(renderparams).filter(el => el[1] != undefined);
+    filtered.push(['debug', 1])
 		let usp = new URLSearchParams(filtered);
 		return `/og/?${usp.toString()}`;
 	}

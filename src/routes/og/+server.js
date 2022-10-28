@@ -19,7 +19,7 @@ const width = 1200;
 export const GET = async (event) => {
 	let searchParams = event.url.searchParams;
 
-  validateKey(searchParams.get('key'));
+  validateKey(searchParams.get('key'), searchParams.get('debug'));
 
   let renderparams = extractSearchParams(searchParams);
 
@@ -77,10 +77,11 @@ export const GET = async (event) => {
  * Validate the provided key from the URL against
  * the KEY defined in environment
  * @param {string|null} keyFromUrlParams
+ * @param {string|null} debug
  */
-function validateKey(keyFromUrlParams) {
+function validateKey(keyFromUrlParams, debug) {
 
-  if(dev) return true;
+  if(dev || debug == '1') return true;
 
   if(typeof env.KEY === 'undefined') {
     throw error(500, 'Server misconfiguration: env.KEY is missing.');
