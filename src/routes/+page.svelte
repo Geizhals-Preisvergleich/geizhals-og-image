@@ -8,7 +8,7 @@
 </svelte:head>
 
 <section>
-	<h1>hello</h1>
+	<h1>hello, this is the GH og:image service</h1>
 </section>
 
 <style lang="scss">
