@@ -11,6 +11,11 @@
 		let usp = new URLSearchParams(data);
 		url = `/og?${usp.toString()}`;
 	}
+	let editorurl;
+	$: {
+		let usp = new URLSearchParams(data);
+		editorurl = `/og/editor?${usp.toString()}`;
+	}
 </script>
 
 <form use:draggable={{ cancel: 'input, label' }}>
@@ -19,24 +24,37 @@
 	</div>
 	<label>
 		Title:
-		<input class="cancel-drag" type="text" bind:value={data.title} placeholder="<title>" />
+		<textarea rows=4 class="cancel-drag" placeholder="<title>" bind:value={data.title}></textarea>
 	</label>
 	<label>
 		Image:
 		<input class="cancel-drag" type="text" bind:value={data.image} placeholder="url to an image" />
 	</label>
-  <div class="rating">
-    <label>
-      Rating (0-5):
-      <input class="cancel-drag" type="number" min="0" max="5" bind:value={data.ratings} placeholder="5" />
-    </label>
-    <label>
-      Rating Anzahl:
-      <input class="cancel-drag" type="number" min="0" bind:value={data.ratings_count} placeholder="25" />
-    </label>
-  </div>
+	<div class="rating">
+		<label>
+			Rating (0-5):
+			<input
+				class="cancel-drag"
+				type="number"
+				min="0"
+				max="5"
+				bind:value={data.ratings}
+				placeholder="5"
+			/>
+		</label>
+		<label>
+			Rating Anzahl:
+			<input
+				class="cancel-drag"
+				type="number"
+				min="0"
+				bind:value={data.ratings_count}
+				placeholder="25"
+			/>
+		</label>
+	</div>
 	<label class="checkbox">
-    <input class="cancel-drag" type="checkbox" bind:checked={data.variants} />
+		<input class="cancel-drag" type="checkbox" bind:checked={data.variants} />
 		Varianten-Badge?
 	</label>
 
@@ -46,7 +64,10 @@
 		Auto-Refresh (every 4 seconds)
 	</label>
 
-	<a href={url} target="_blank" style="align-self: flex-start;">open og image</a>
+	<div class="links">
+		<a href={editorurl} style="align-self: flex-start;">update URL</a>
+		<a href={url} target="_blank" style="align-self: flex-start;">open og image ⤴️</a>
+	</div>
 
 	{#if loading}<div class="loading">loading</div>{/if}
 </form>
@@ -86,7 +107,9 @@
 		text-transform: uppercase;
 		font-weight: 600;
 	}
-	input[type='text'], input[type='number'] {
+	input[type='text'],
+	input[type='number'],
+	textarea {
 		border: 1px solid var(--primary);
 		background-color: rgba(0, 0, 0, 0.656);
 		color: #fff;
@@ -106,12 +129,17 @@
 		gap: 0.5rem;
 	}
 
-  .rating {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-  .rating > * {
-    flex: 1;
-  }
+	.rating {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+	.rating > * {
+		flex: 1;
+	}
+
+	.links {
+		display: flex;
+		justify-content: space-between;
+	}
 </style>

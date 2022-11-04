@@ -1,10 +1,9 @@
 <script>
-	import { dev } from "$app/environment";
-
+	import { dev } from '$app/environment';
 
 	export let renderparams;
 
-	let { title, image, variants, ratings, ratings_count} = renderparams;
+	let { title, image, variants, ratings, ratings_count } = renderparams;
 	if (title == '') title = '<title>';
 
 	function validImage(url) {
@@ -27,16 +26,26 @@
 			<div class="meta">
 				{#if ratings && ratings_count}
 					<div class="ratings">
-						<span class="stars"
-							>{#each Array.from({ length: ratings }) as star}★{/each}</span
-						>
-						{ratings} / {ratings_count} Bewertungen
+						<span class="stars-wrap">
+							<span class="stars stars-0">
+								{#each Array.from({ length: 5 }) as star}★{/each}
+							</span>
+							<span class="stars stars-1">
+								{#each Array.from({ length: 5 }) as star}★{/each}
+							</span>
+							<span class="stars stars-2" style:width="{(ratings / 5) * 100}%">
+                <span class="inner">
+                  {#each Array.from({ length: 5 }) as star}★{/each}
+                </span>
+							</span>
+						</span>
+						<span class="ratings_count">
+							{ratings} / {ratings_count} Bewertungen
+						</span>
 					</div>
 				{/if}
 				{#if variants}
-					<div class="variants">
-						Varianten
-					</div>
+					<div class="variants">Varianten</div>
 				{/if}
 			</div>
 		</div>
@@ -65,9 +74,9 @@
 		background: linear-gradient(to left, #d53a9d, #5c9ed5);
 		font-size: 24px;
 	}
-  .cardroot.debug * {
-    /* border: 1px solid #ddd; */
-  }
+	.cardroot.debug * {
+		/* border: 1px solid #ddd; */
+	}
 
 	.card {
 		position: relative;
@@ -91,10 +100,12 @@
 		margin-right: 350px;
 		position: absolute;
 		left: 20px;
-		top: 110px;
-		width: 70%;
+		top: 20px;
+    bottom: 120px;
+		width: 65%;
 		z-index: 1;
 		align-items: flex-start;
+    justify-content: center;
 	}
 
 	.meta {
@@ -114,10 +125,34 @@
 		text-align: right;
 		align-items: center;
 	}
+
+	.stars-wrap {
+		position: relative;
+	}
 	.stars {
-		color: rgb(243, 174, 0);
-		margin-right: 1rem;
+		color: rgb(192, 192, 192);
 		font-size: 40px;
+		position: absolute;
+		left: 0;
+		text-align: left;
+	}
+
+	.stars-0 {
+		position: relative;
+		opacity: 0;
+	}
+
+	.stars-2 {
+		height: 1em;
+		overflow: hidden;
+		color: rgb(243, 174, 0);
+	}
+  .stars-2 .inner {
+    position: absolute;
+  }
+
+	.ratings_count {
+		margin-left: 1rem;
 	}
 
 	.variants {
@@ -125,7 +160,8 @@
 		color: #fff;
 		text-transform: uppercase;
 		font-size: 26px;
-		padding: 5px 10px;
+		padding: 5px 12px ;
+    border-radius: 5px;
 		font-weight: 600;
 		margin-top: 0.5rem;
 	}
@@ -136,8 +172,8 @@
 		font-weight: 900;
 		margin: 0;
 		color: #004780;
-		line-height: 64px;
-		max-height: 220px;
+		line-height: 1.2em;
+		max-height: 280px;
 		display: flex;
 		/* text-overflow: ellipsis;
     white-space: nowrap; */
@@ -154,8 +190,8 @@
 	.placeholder-image {
 		position: absolute;
 		top: 50%;
-    margin-top: -20px;
-    transform: translateY(-50%);
+		margin-top: -20px;
+		transform: translateY(-50%);
 		right: 20px;
 		width: 400px;
 		height: 400px;
