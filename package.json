@@ -38,8 +38,6 @@
 	"type": "module",
 	"dependencies": {
 		"@neodrag/svelte": "^1.2.4",
-		"canvas": "^2.10.2",
-		"jsdom": "^20.0.2",
 		"tabler-icons-svelte": "^1.8.0"
 	}
 }
