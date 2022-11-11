@@ -15,6 +15,10 @@ export async function load({}) {
 
 	let images = await getImages(top10links);
 
+  images = images.map(i => {
+    return i.replace('https://geizhals-og-image.vercel.app', 'http://localhost:5173')
+  });
+
 	return {
 		images
 	};

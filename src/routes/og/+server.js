@@ -19,9 +19,11 @@ const width = 1200;
 export const GET = async (event) => {
 	let searchParams = event.url.searchParams;
 
-  validateKey(searchParams.get('key'), searchParams.get('debug'));
+	validateOrigin(event);
 
-  let renderparams = extractSearchParams(searchParams);
+	validateKey(searchParams.get('key'), searchParams.get('debug'));
+
+	let renderparams = extractSearchParams(searchParams);
 
 	// renders the component (as string)
 	const result = Card.render({
@@ -67,11 +69,10 @@ export const GET = async (event) => {
 	return new Response(image.asPng(), {
 		headers: {
 			'content-type': 'image/png',
-      'Cache-Control': 'max-age=60'
+			'Cache-Control': 'max-age=60'
 		}
 	});
 };
-
 
 /**
  * Validate the provided key from the URL against
@@ -80,14 +81,24 @@ export const GET = async (event) => {
  * @param {string|null} debug
  */
 function validateKey(keyFromUrlParams, debug) {
+	if (dev || debug == '1') return true;
 
-  if(dev || debug == '1') return true;
+	if (typeof env.KEY === 'undefined') {
+		throw error(500, 'Server misconfiguration: env.KEY is missing.');
+	}
 
-  if(typeof env.KEY === 'undefined') {
-    throw error(500, 'Server misconfiguration: env.KEY is missing.');
-  }
+	if (env.KEY !== keyFromUrlParams) {
+		throw error(405, 'Not allowed. Missing or wrong key.');
+	}
+}
 
-  if(env.KEY !== keyFromUrlParams) {
-    throw error(405, 'Not allowed. Missing or wrong key.');
-  }
+function validateOrigin(event) {
+  let allowed = false;
+	let allowlist = ['https://geizhals.at', 'https://geizhals.at'];
+	let origin = event.request.headers.get('origin');
+  console.log(origin);
+	if (origin == null) allowed = true;
+	if (allowlist.includes(origin)) allowed = true;
+
+  if(!allowed) throw error(405, `Not allowed. Invalid origin "${origin}".`);
 }
