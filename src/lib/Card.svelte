@@ -3,7 +3,7 @@
 
 	export let renderparams;
 
-	let { title, image, variants, ratings, ratings_count } = renderparams;
+	let { title, ximage: image, variants, ratings, ratings_count } = renderparams;
 	if (title == '') title = '<title>';
 
 	function validImage(url) {
