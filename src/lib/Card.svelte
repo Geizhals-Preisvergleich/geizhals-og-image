@@ -34,9 +34,9 @@
 								{#each Array.from({ length: 5 }) as star}★{/each}
 							</span>
 							<span class="stars stars-2" style:width="{(ratings / 5) * 100}%">
-                <span class="inner">
-                  {#each Array.from({ length: 5 }) as star}★{/each}
-                </span>
+								<span class="inner">
+									{#each Array.from({ length: 5 }) as star}★{/each}
+								</span>
 							</span>
 						</span>
 						<span class="ratings_count">
@@ -101,11 +101,11 @@
 		position: absolute;
 		left: 20px;
 		top: 20px;
-    bottom: 120px;
+		bottom: 120px;
 		width: 65%;
 		z-index: 1;
 		align-items: flex-start;
-    justify-content: center;
+		justify-content: center;
 	}
 
 	.meta {
@@ -147,9 +147,9 @@
 		overflow: hidden;
 		color: rgb(243, 174, 0);
 	}
-  .stars-2 .inner {
-    position: absolute;
-  }
+	.stars-2 .inner {
+		position: absolute;
+	}
 
 	.ratings_count {
 		margin-left: 1rem;
@@ -160,8 +160,8 @@
 		color: #fff;
 		text-transform: uppercase;
 		font-size: 26px;
-		padding: 5px 12px ;
-    border-radius: 5px;
+		padding: 5px 12px;
+		border-radius: 5px;
 		font-weight: 600;
 		margin-top: 0.5rem;
 	}

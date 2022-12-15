@@ -19,7 +19,9 @@ const width = 1200;
 export const GET = async (event) => {
 	let searchParams = event.url.searchParams;
 
-	validateOrigin(event);
+	// validating origin
+  // TODO: this does not really work as we're not getting an origin from consuming applications AFAICT
+	// validateOrigin(event);
 
 	validateKey(searchParams.get('key'), searchParams.get('debug'));
 
@@ -93,12 +95,12 @@ function validateKey(keyFromUrlParams, debug) {
 }
 
 function validateOrigin(event) {
-  let allowed = false;
+	let allowed = false;
 	let allowlist = ['https://geizhals.at', 'https://geizhals.at'];
 	let origin = event.request.headers.get('origin');
-  console.log(origin);
+
 	if (origin == null) allowed = true;
 	if (allowlist.includes(origin)) allowed = true;
 
-  if(!allowed) throw error(405, `Not allowed. Invalid origin "${origin}".`);
+	if (!allowed) throw error(405, `Not allowed. Invalid origin "${origin}".`);
 }
