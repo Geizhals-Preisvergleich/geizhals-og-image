@@ -9,6 +9,8 @@
 	function validImage(url) {
 		return url.includes('https://');
 	}
+
+  let starsRatingMaskWidth = !!ratings ? (ratings / 5) * 100 : 0;
 </script>
 
 <div class="cardroot" class:debug={dev}>
@@ -33,7 +35,7 @@
 							<span class="stars stars-1">
 								{#each Array.from({ length: 5 }) as star}★{/each}
 							</span>
-							<span class="stars stars-2" style:width="{(ratings / 5) * 100}%">
+							<span class="stars stars-2" style:width="{starsRatingMaskWidth}%">
 								<span class="inner">
 									{#each Array.from({ length: 5 }) as star}★{/each}
 								</span>
