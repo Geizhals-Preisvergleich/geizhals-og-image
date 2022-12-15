@@ -1,8 +1,3 @@
-<script>
-
-  let image = "https://geizhals-og-image.vercel.app/og?title=Nintendo+Switch+schwarz%2Fgrau+%282019%29+dfef&ximage=https%3A%2F%2Fgzhls.at%2Fi%2F54%2F42%2F2135442-n0.jpg&key=123456"
-
-</script>
 
 <svelte:head>
 	<title>metatag test</title>
@@ -16,7 +11,7 @@
 	<meta property="og:description" content="this is a test for metatag" />
 	<meta
 		property="og:image"
-		content="{image}"
+		content="https://geizhals-og-image.vercel.app/og?title=Google%20Pixel%207%20Pro%20256GB%20Snow&ratings=4&ratings_count=24&variants=2&key=123456&ximage=https%3A%2F%2Fgzhls.at%2Fi%2F69%2F78%2F2826978-n0.jpg"
 	/>
 
 	<!-- Twitter -->
@@ -26,6 +21,6 @@
 	<meta property="twitter:description" content="this is a test for metatag" />
 	<meta
 		property="twitter:image"
-		content="{image}"
+		content="https://geizhals-og-image.vercel.app/og?title=Google%20Pixel%207%20Pro%20256GB%20Snow&ratings=4&ratings_count=24&variants=2&key=123456&ximage=https%3A%2F%2Fgzhls.at%2Fi%2F69%2F78%2F2826978-n0.jpg"
 	/></svelte:head
 >

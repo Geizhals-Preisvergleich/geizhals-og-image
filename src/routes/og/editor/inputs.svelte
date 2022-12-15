@@ -5,7 +5,7 @@
 	export let data;
 	export let loading = false;
 	export let autoRefresh = false;
-console.log(data)
+
 	let url;
 	$: {
 		let usp = new URLSearchParams(data);
@@ -28,7 +28,7 @@ console.log(data)
 	</label>
 	<label>
 		Image:
-		<input class="cancel-drag" type="text" bind:value={data.ximage} placeholder="url to an image" />
+		<input class="cancel-drag" type="text" bind:value={data.image} placeholder="url to an image" />
 	</label>
 	<div class="rating">
 		<label>
