@@ -13,7 +13,6 @@
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
-		"@neoconfetti/svelte": "^1.0.0",
 		"@resvg/resvg-js": "^2.1.0",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "^1.0.0",
@@ -38,6 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"@neodrag/svelte": "^1.2.4",
+		"@sveltejs/adapter-vercel": "^1.0.0",
 		"tabler-icons-svelte": "^1.8.0"
 	}
 }
