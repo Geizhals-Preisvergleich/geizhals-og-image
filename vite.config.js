@@ -10,9 +10,19 @@ const config = {
 			// these are the aliases and paths to them
 			$utils: path.resolve('./src/lib/utils')
 		}
-	}
+	},
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import 'src/styles/variables.scss';
+        `,
+      },
+    },
+  },
 };
 
+// see https://geoffrich.net/posts/svelte-social-image/
 function rawFonts(ext) {
 	return {
 		name: 'vite-plugin-raw-fonts',
