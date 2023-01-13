@@ -1,6 +1,6 @@
 # Geizhals OG Images
 
-Experiment to leverage [satori](https://github.com/vercel/satori) and SvelteKit to generate dynamic [open graph](https://ogp.me/) images for Geizhals product pages. This application houses both the image generation part as well as an [Editor](#editor) for testing/debugging purposes.
+Experiment to leverage [satori](https://github.com/vercel/satori) and [SvelteKit](https://kit.svelte.dev/) to generate dynamic [open graph](https://ogp.me/) images for Geizhals product pages. This application houses both the image generation part as well as an [Editor](#editor) for testing/debugging purposes.
 
 ![og](https://user-images.githubusercontent.com/465547/212314944-0298eb64-5330-419a-8bf3-d2195a26ee63.png)
 
@@ -53,6 +53,8 @@ npm run build
 ```
 
 You can preview the production build with `npm run preview`.
+
+See https://kit.svelte.dev/docs/adapters on how to deploy the application. Currently this application uses adapter-vercel for deployments to vercel. Change as required.
 
 ## Preliminary work
 
