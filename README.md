@@ -58,7 +58,7 @@ See https://kit.svelte.dev/docs/adapters on how to deploy the application. Curre
 
 ## Preliminary work
 
-- SvelteKit project setup is based on [`SvelteKit Starter (Preprocess, PostCSS, AutoPrefixer)`](https://stackblitz.com/edit/sveltejs-kit-template-default-stn1sy).
+- SvelteKit project setup is based on [SvelteKit Starter (Preprocess, PostCSS, AutoPrefixer)](https://stackblitz.com/edit/sveltejs-kit-template-default-stn1sy).
 - [satori](https://github.com/vercel/satori) by vercel
 - [satori-html](https://github.com/natemoo-re/satori-html) by Nate Moore / Astro
 - [Create dynamic social card images with Svelte components](https://geoffrich.net/posts/svelte-social-image/) by [Geoff Rich](https://geoffrich.net/)
