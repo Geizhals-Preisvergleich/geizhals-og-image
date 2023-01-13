@@ -16,7 +16,6 @@
 		"@resvg/resvg-js": "^2.1.0",
 		"@sveltejs/kit": "^1.0.11",
 		"@types/cookie": "^0.5.1",
-		"autoprefixer": "^10.4.12",
 		"node-sass": "^7.0.3",
 		"postcss": "^8.4.18",
 		"postcss-load-config": "^4.0.1",
@@ -28,7 +27,6 @@
 		"satori-html": "^0.3.0",
 		"svelte": "^3.46.0",
 		"svelte-check": "^2.7.1",
-		"svelte-preprocess": "^4.10.7",
 		"svelte-textfit": "^1.1.4",
 		"typescript": "^4.7.4",
 		"vite": "^4.0.1"
