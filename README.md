@@ -34,7 +34,7 @@ By default, the dev server will available at http://localhost:5173/
 
 ## Images
 
-With the (dev) server running, visit http://localhost:5173/og?title=Nintendo+Switch+OLED+schwarz%2Fwei%C3%9F&image=https%3A%2F%2Fgzhls.at%2Fi%2F76%2F69%2F2557669-n0.jpg&variants=true&ratings=5&ratings_count=7
+With the (dev) server running, visit http://localhost:5173/og/ and append the parameters for required for the image, e.g. http://localhost:5173/og?title=Nintendo+Switch+OLED+schwarz%2Fwei%C3%9F&image=https%3A%2F%2Fgzhls.at%2Fi%2F76%2F69%2F2557669-n0.jpg&variants=true&ratings=5&ratings_count=7
 
 ## Editor
 
