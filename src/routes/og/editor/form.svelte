@@ -4,7 +4,7 @@
 
 	export let data;
 	export let loading = false;
-	export let autoRefresh = false;
+	export let isAutoRefresh = false;
 
 	let url;
 	$: {
@@ -55,7 +55,7 @@
 
 	<hr />
 	<label class="checkbox">
-		<input type="checkbox" bind:checked={autoRefresh} />
+		<input type="checkbox" bind:checked={isAutoRefresh} />
 		auto-refresh image (every 4 seconds)
 	</label>
 
