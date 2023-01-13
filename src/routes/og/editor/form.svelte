@@ -19,7 +19,7 @@
 	</div>
 	<label>
 		Title:
-		<textarea rows=4 class="cancel-drag" placeholder="<title>" bind:value={data.title}></textarea>
+		<textarea rows="4" class="cancel-drag" placeholder="<title>" bind:value={data.title} />
 	</label>
 	<label>
 		Image:
@@ -60,7 +60,9 @@
 	</label>
 
 	<div class="links">
-		<a href={url} target="_blank" rel="noreferrer" style="align-self: flex-start;">open og image ⤴️</a>
+		<a href={url} target="_blank" rel="noreferrer" style="align-self: flex-start;"
+			>open og image ⤴️</a
+		>
 	</div>
 
 	{#if loading}<div class="loading">loading</div>{/if}

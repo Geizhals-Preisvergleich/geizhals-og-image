@@ -10,7 +10,7 @@
 		return url.includes('https://');
 	}
 
-  let starsRatingMaskWidth = !!ratings ? (ratings / 5) * 100 : 0;
+	let starsRatingMaskWidth = !!ratings ? (ratings / 5) * 100 : 0;
 </script>
 
 <div class="cardroot" class:debug={dev}>
