@@ -4,59 +4,87 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { extractSearchParams } from '../extract-params';
+	import Form from './form.svelte';
+
 	let renderparams = extractSearchParams($page.url.searchParams);
-	import Inputs from './inputs.svelte';
-
-	$: previewURL = buildOGImageUrl(renderparams);
-	$: {
-		let renderparamsWithoutUndefined = Object.fromEntries(
-			Object.entries(renderparams).filter(([_, v]) => v != null)
-		);
-		let usp = new URLSearchParams(renderparamsWithoutUndefined);
-    let editorUrl = `/og/editor?${usp.toString()}`;
-		if(browser && location.search !== editorUrl) goto(editorUrl, {replaceState: true, keepFocus: true});
-	}
-
-	function buildOGImageUrl(renderparams) {
-		let filtered = Object.entries(renderparams).filter((el) => el[1] != undefined);
-		filtered.push(['debug', 1]);
-		filtered.push(['____t', new Date().toISOString()]); // cachebust
-		let usp = new URLSearchParams(filtered);
-		return `/og/?${usp.toString()}`;
-	}
-
-	$: loading = previewURL || renderparams.refreshKey ? true : false;
-
-	function onLoad() {
-		loading = false;
-	}
-
-	let autoRefresh = dev;
+	let isAutoRefresh = dev;
 	let refreshTimeout;
 
 	if (browser) {
 		onMount(() => {
-			doRefresh(0);
+      // kick off refresh loop
+			isAutoRefresh && doRefresh(0);
 			return () => {
 				clearTimeout(refreshTimeout);
 			};
 		});
 	}
 
+	$: loading = !!(previewURL || renderparams.__refreshKey);
+
+	// keep previewURL to to date (used for link in <Form>)
+	$: previewURL = buildOGImageUrl(renderparams);
+
+	// goto new url whenever a render parameter changes
+	$: {
+		let renderparamsWithoutUndefined = removeEmpty(renderparams);
+		let usp = new URLSearchParams(renderparamsWithoutUndefined);
+		let editorUrl = `/og/editor?${usp.toString()}`;
+		if (browser && location.search !== editorUrl)
+			goto(editorUrl, { replaceState: true, keepFocus: true });
+	}
+
+	/**
+	 * Event handler for image onload.
+	 */
+	function onLoad() {
+		loading = false;
+	}
+
+	/**
+	 * Build URL to the image
+	 * appends &debug=1 and &__t=<currentTime>
+	 * @param {Object} renderparams
+	 */
+	function buildOGImageUrl(renderparams) {
+		let filtered = removeEmpty(renderparams);
+		filtered.push(['debug', 1]);
+		filtered.push(['__t', new Date().toISOString()]); // cachebust
+		let usp = new URLSearchParams(filtered);
+		return `/og/?${usp.toString()}`;
+	}
+
+	/**
+	 * Do refresh.
+	 * Implemented as a timeout loop for easier control.
+	 * Will call doRefresh again if the tab is visible and isAutoRefresh is `true`
+	 * @param {number} inc incrementer. gets appended to renderparams for url to change
+	 */
 	function doRefresh(inc) {
 		clearTimeout(refreshTimeout);
 		refreshTimeout = setTimeout(() => {
-			if (autoRefresh && document.visibilityState === 'visible') {
+			if (isAutoRefresh && document.visibilityState === 'visible') {
 				inc++;
-				renderparams.refreshKey = inc;
+				renderparams.__refreshKey = inc;
 			}
 			doRefresh(inc);
 		}, 4000);
 	}
+
+	/**
+	 * Remove keys with null or undefined values from object
+	 * @param {Object} obj the object to remove from
+	 * @param {boolean} returnArray if true, will return an array. otherwise object.
+	 * @returns {Object} obj cleaned from null and undefined
+	 */
+	function removeEmpty(obj, asArray = false) {
+		const cleaned = Object.entries(obj).filter(([_, v]) => v != null);
+		return asArray ? Object.fromEntries(cleaned) : cleaned;
+	}
 </script>
 
 <div class="preview-page">
-	<Inputs bind:data={renderparams} {loading} bind:autoRefresh />
+	<Form bind:data={renderparams} {loading} bind:isAutoRefresh />
 
 	<div class="preview">
 		{#if previewURL}
