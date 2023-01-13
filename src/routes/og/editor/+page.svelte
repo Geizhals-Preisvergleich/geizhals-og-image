@@ -1,5 +1,6 @@
 <script>
 	import { browser, dev } from '$app/environment';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { extractSearchParams } from '../extract-params';
@@ -7,11 +8,19 @@
 	import Inputs from './inputs.svelte';
 
 	$: previewURL = buildOGImageUrl(renderparams);
+	$: {
+		let renderparamsWithoutUndefined = Object.fromEntries(
+			Object.entries(renderparams).filter(([_, v]) => v != null)
+		);
+		let usp = new URLSearchParams(renderparamsWithoutUndefined);
+    let editorUrl = `/og/editor?${usp.toString()}`;
+		if(browser && location.search !== editorUrl) goto(editorUrl, {replaceState: true, keepFocus: true});
+	}
 
 	function buildOGImageUrl(renderparams) {
-    let filtered = Object.entries(renderparams).filter(el => el[1] != undefined);
-    filtered.push(['debug', 1])
-    filtered.push(['____t', new Date().toISOString()])
+		let filtered = Object.entries(renderparams).filter((el) => el[1] != undefined);
+		filtered.push(['debug', 1]);
+		filtered.push(['____t', new Date().toISOString()]); // cachebust
 		let usp = new URLSearchParams(filtered);
 		return `/og/?${usp.toString()}`;
 	}
@@ -38,7 +47,7 @@
 		clearTimeout(refreshTimeout);
 		refreshTimeout = setTimeout(() => {
 			if (autoRefresh && document.visibilityState === 'visible') {
-        inc++;
+				inc++;
 				renderparams.refreshKey = inc;
 			}
 			doRefresh(inc);

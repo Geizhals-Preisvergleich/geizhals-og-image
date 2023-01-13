@@ -11,11 +11,6 @@
 		let usp = new URLSearchParams(data);
 		url = `/og?${usp.toString()}`;
 	}
-	let editorurl;
-	$: {
-		let usp = new URLSearchParams(data);
-		editorurl = `/og/editor?${usp.toString()}`;
-	}
 </script>
 
 <form use:draggable={{ cancel: 'input, label' }}>
@@ -61,12 +56,11 @@
 	<hr />
 	<label class="checkbox">
 		<input type="checkbox" bind:checked={autoRefresh} />
-		Auto-Refresh (every 4 seconds)
+		auto-refresh image (every 4 seconds)
 	</label>
 
 	<div class="links">
-		<a href={editorurl} style="align-self: flex-start;">update URL</a>
-		<a href={url} target="_blank" style="align-self: flex-start;">open og image ⤴️</a>
+		<a href={url} target="_blank" rel="noreferrer" style="align-self: flex-start;">open og image ⤴️</a>
 	</div>
 
 	{#if loading}<div class="loading">loading</div>{/if}
