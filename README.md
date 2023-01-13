@@ -16,7 +16,7 @@ The list of parameters is defined in [src/routes/og/extract-params.js](./src/rou
 
 ### Fonts
 
-This example uses Inter font. If you want to use a different font, place the woff files in $lib/fonts and load them in [src/routes/og/+server.js](./src/routes/og/+server.js).
+This example uses [Inter](https://github.com/rsms/inter) font. If you want to use a different font, place the woff files in $lib/fonts and load them in [src/routes/og/+server.js](./src/routes/og/+server.js).
 
 
 ## Run dev server
