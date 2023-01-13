@@ -1,6 +1,5 @@
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
-import { env } from '$env/dynamic/private';
 
 import Inter from '$lib/fonts/Inter-Regular.woff';
 import InterBold from '$lib/fonts/Inter-Bold.woff';
@@ -8,9 +7,8 @@ import InterExtraBold from '$lib/fonts/Inter-ExtraBold.woff';
 
 import { html as toReactNode } from 'satori-html';
 import Card from '$lib/Card.svelte';
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { extractSearchParams } from './extract-params';
-import { dev } from '$app/environment';
 
 const height = 630;
 const width = 1200;
@@ -20,13 +18,12 @@ export const GET = async (event) => {
 	let searchParams = event.url.searchParams;
 
 	// validating origin
-  // TODO: this does not really work as we're not getting an origin from consuming applications AFAICT
+	// TODO: this does not really work as we're not getting an origin from consuming applications AFAICT
 	// validateOrigin(event);
-
-	validateKey(searchParams.get('key'), searchParams.get('debug'));
 
 	let renderparams = extractSearchParams(searchParams);
 
+	// Credit: the SSR rendering part is based on https://github.com/geoffrich/sveltekit-og-post
 	// renders the component (as string)
 	const result = Card.render({
 		renderparams
@@ -77,23 +74,13 @@ export const GET = async (event) => {
 };
 
 /**
- * Validate the provided key from the URL against
- * the KEY defined in environment
- * @param {string|null} keyFromUrlParams
- * @param {string|null} debug
+ * Validate allowed origins.
+ * FIXME: this does not work as most(?) consumers do not provide an origin
+ * TODO: do more logging around origins
+ * TODO: move allowlist to config or env var
+ * @param {import(./$types).RequestEvent } event
+ * @returns {boolean} `true` if origin is in the allowlist (specified locally here)
  */
-function validateKey(keyFromUrlParams, debug) {
-	if (dev || debug == '1') return true;
-
-	if (typeof env.KEY === 'undefined') {
-		throw error(500, 'Server misconfiguration: env.KEY is missing.');
-	}
-
-	if (env.KEY !== keyFromUrlParams) {
-		throw error(405, 'Not allowed. Missing or wrong key.');
-	}
-}
-
 function validateOrigin(event) {
 	let allowed = false;
 	let allowlist = ['https://geizhals.at', 'https://geizhals.at'];
