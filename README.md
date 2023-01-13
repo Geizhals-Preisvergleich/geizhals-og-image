@@ -1,6 +1,8 @@
 # Geizhals OG Images
 
-Experiment to leverage [satori](https://github.com/vercel/satori) and SvelteKit to generate dynamic [open graph](https://ogp.me/) images for Geizhals product pages.
+Experiment to leverage [satori](https://github.com/vercel/satori) and SvelteKit to generate dynamic [open graph](https://ogp.me/) images for Geizhals product pages. This application houses both the image generation part as well as an [#editor](Editor) for testing/debugging purposes.
+
+![og](https://user-images.githubusercontent.com/465547/212314944-0298eb64-5330-419a-8bf3-d2195a26ee63.png)
 
 The content of the generated image can be set by specifying GET parameters (eg. /og?title=this%20is%20a%20title).
 
@@ -35,6 +37,8 @@ By default, the dev server will available at http://localhost:5173/
 With the (dev) server running, visit http://localhost:5173/og?title=Nintendo+Switch+OLED+schwarz%2Fwei%C3%9F&image=https%3A%2F%2Fgzhls.at%2Fi%2F76%2F69%2F2557669-n0.jpg&variants=true&ratings=5&ratings_count=7
 
 ## Editor
+
+![editor](https://user-images.githubusercontent.com/465547/212315043-3659cee8-4ce3-4d26-9012-850a37094699.png)
 
 For better testing and developing, a simple editor interface can be found at http://localhost:5173/og/editor/
 
