@@ -73,7 +73,6 @@
 		padding: 14px;
 		justify-content: center;
 		align-items: center;
-		background: linear-gradient(to left, #d53a9d, #5c9ed5);
 		font-size: 24px;
 	}
 	.cardroot.debug * {
